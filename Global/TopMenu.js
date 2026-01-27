@@ -148,7 +148,8 @@ export const TopMenu = () => {
       <View style={xStyle.topnav_top}>
         <View>
           <Image
-            source={require('../assets/images/logo_page.png')}
+            source={require('../assets/images/logo_rounded_512.png')}
+            style={{width: 36, height: 36}}
           />
         </View>
         <View style={[xStyle.topnavRight,{justifyContent:'flex-end'}]}>

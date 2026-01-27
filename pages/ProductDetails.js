@@ -286,6 +286,7 @@ export const ProductDetails = ({route,navigation}) => {
                         <Text style={xStyle.prod_det_details_body_title}>&#8226;  ISBN-10: <Text style={xStyle.prod_det_details_body_value}>{bookdetail.isbn10}</Text></Text>
                         <Text style={xStyle.prod_det_details_body_title}>&#8226;  ISBN-13: <Text style={xStyle.prod_det_details_body_value}>{bookdetail.isbn13}</Text></Text>
                         <Text style={xStyle.prod_det_details_body_title}>&#8226;  No of Pages: <Text style={xStyle.prod_det_details_body_value}>{bookdetail.noofpages}</Text></Text>
+                        <Text style={[xStyle.prod_det_details_body_value,{marginTop: 10}]}>* Purchase this from ebooksjunction.com</Text>
                     </View>
                 </View>
 

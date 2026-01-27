@@ -64,7 +64,8 @@ const SplashScreen =({navigation})=> {
                 }}
               >
               <Image
-                source={require('../assets/images/logo.png')}
+                source={require('../assets/images/new_logo_1.png')}
+                
               />
           </View>
         </View>
