@@ -19,13 +19,13 @@ import EpubScreen from '../pages/EpubScreen';
 import MyBookshelfOffline from '../pages/MyBookshelfOffline';
 import PdfScreenOffline from '../pages/PdfScreenOffline';
 import EpubScreenOffline from '../pages/EpubScreenOffline';
-
+import { navigationRef } from './navigationRef';
 
 
 const Stack = createStackNavigator();
 const Navigation=()=>{
   return (
-    <NavigationContainer initialRouteName="splash">
+    <NavigationContainer initialRouteName="splash" ref={navigationRef}>
       <Stack.Navigator>
           <Stack.Screen name="splash" component={SplashScreen} options={{title: 'splash',headerShown: false}}/>
           <Stack.Screen name="home" component={HomeScreen} options={{title: 'intro',headerShown: false}}/>

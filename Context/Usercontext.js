@@ -10,12 +10,13 @@ import axios from "axios";
 import { useAuth } from "./Authcontext";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import MyBookshelf from "../pages/MyBookshelf";
+import { resetToLogin } from "../navs/navigationRef";
 
 const UserContext = createContext();
 
 const UserProvider = ({ children }) => {
 
-  const { authData, wishlistshow, isexpired, uuid } = useAuth();
+  const { authData, wishlistshow, isexpired, uuid,logOut } = useAuth();
 
   // const [catrproducts , setCartproducts] = useState([])
   const [isActive, setActive] = useState(false)
@@ -62,6 +63,10 @@ const UserProvider = ({ children }) => {
       localstorage_price_items_signin()
       getBookShelf();
       myorders();
+      const interval = setInterval(() => {
+       getBookShelfForUser()
+    }, 5000);
+      return () => clearInterval(interval);
       // get_wish_books_id()
     }
   }
@@ -831,6 +836,38 @@ const UserProvider = ({ children }) => {
         console.log("BOOKSHELF CONTEXT ERROR: ", error);
       }
     }
+
+    /*LOGIN VALIDATION CHECKING*/
+     const getBookShelfForUser = async () => {
+      console.log("getBookShelfForUser called")
+    try {
+      const response = await axios.get(Config.API_URL + Config.BOOK_SHELF+"?currentPage=" + 1 + "&recordPerPage=" + 10,
+        {
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + authData
+          },
+        })
+        // setAllActivePublisher(response.data.output)
+      //console.log("GET BOOKSHELF RESPONSE : ", response);
+      return response.data;
+    }
+       catch (error) {
+         console.log("BOOKSHELF CONTEXT ERROR: ", error);
+
+         if (error.response && error.response.status === 401) {
+           await AsyncStorage.setItem("userid", '');
+            await AsyncStorage.setItem("unique_id", '');
+
+           logOut(); // clear context state
+
+           alert("Your session has expired. Please login again.");
+
+           resetToLogin();
+         }
+       }
+
+  }
 
     /* Razor Pay */
     const createOrder = async (data) => {
